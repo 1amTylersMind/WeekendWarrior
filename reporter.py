@@ -42,9 +42,16 @@ def main():
     else:
         print("OS: "+os.name)
 
-        hostname = get_localhost_name()
-        ip, wlanmac = get_nx_info('wlan0')
-        i, ethmac = get_nx_info('eth0')
+        try:
+            hostname = get_localhost_name()
+        except:
+            print("Couldnt get hostname")
+        try:
+            ip, wlanmac = get_nx_info('wlan0')
+            i, ethmac = get_nx_info('eth0')
+        except UnboundLocalError:
+            print "Couldn't get MAC and IP"
+
 
 
 if __name__ == '__main__':
