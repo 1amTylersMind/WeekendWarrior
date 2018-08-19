@@ -14,7 +14,7 @@ def get_nx_info(iface):
     IP=""
     for line in nxtxt.readlines():
         try:
-            IP = line.split('inet ')[1].split('netmask')[0]
+            IP = line.split('inet ')[1].split("  ")[0]
             print("IP "+IP)
         except:
             unused += 1
