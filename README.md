@@ -10,4 +10,13 @@ This is a python script that enumerates the name, IP address and MAC address
  accomplish this task with a single scapy command, compared with an exhaustive
  ping search (the trade of being the arp command creates very noticeable network
  traffic compared to the quiter pings). 
+ 
+# Words.py
+I've been thinking a lot recently about entropy, and so I thought it might be
+interesting to apply that perspective to first plain english (for a reference),
+and then various cryptographic hashes of the same english words with different ciphers. 
+
+What I think will be most interesting is to see the incremental change from low
+to high entropy by trying different things like moving from plain text, to hex, 
+to something that's actually the hex output of a hash. 
 
