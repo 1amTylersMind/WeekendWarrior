@@ -1,41 +1,50 @@
 import numpy as np, sys, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import scipy.io as io
 from scipy.misc import imsave
+import scipy.ndimage as ndi
 
 
 class ImageProcessor:
 
     MODE = -1
+    width = 0
+    height = 0
 
     def __init__(self, opt):
 
         if opt == 'create':
             iMatrix = self.create_image()
-            print iMatrix.shape
+            print str(len(iMatrix))+" frames of " + \
+                str(self.width)+'x'+str(self.height)
+
 
     def create_image(self):
-        width = int(input('Enter Image Width: '))
-        height = int(input('Enter Image Height: '))
-        # mat = np.zeros((width, height),dtype=int)
-        # f = plt.figure()
-        # plt.imshow(mat, 'gray')
+        self.width = int(input('Enter Image Width: '))
+        self.height = int(input('Enter Image Height: '))
+        # Diaply the type of images that can be created
         selection = self.display_creation_menu()
+        # Handling the random image sequence option first
         if selection == 'random':
             fig = plt.figure()
+            plt.title(str(self.width)+'x'+str(self.height)+' Random Seed ')
             imgs = []
-            for i in range(int(width*height)):
+            for i in range(int(self.width*self.height)):
                 randomMatrix = \
-                    self.spawn_random_image(width, height)
+                    self.spawn_random_image(self.width, self.height)
                 randImg = plt.imshow(randomMatrix,'gray',animated=True)
                 imgs.append([randImg])
 
-            # plt.imshow(randomMatrix, 'gray')
-            # plt.show()
             ani = animation.ArtistAnimation(fig,imgs,interval=30,
                                             blit=True,repeat_delay=1000)
             plt.show()
-        return mat
+            return imgs
+        # Handling the 'exotic' option second
+        if selection == 'exotic':
+            fig = plt.figure()
+            ims = []
+            
 
     @staticmethod
     def spawn_random_image(W, H):
