@@ -1,4 +1,4 @@
-import numpy as np, sys, os
+import numpy as np, sys, os, hashlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import scipy.io as io
@@ -19,12 +19,13 @@ class ImageProcessor:
             print str(len(iMatrix))+" frames of " + \
                 str(self.width)+'x'+str(self.height)
 
-
     def create_image(self):
         self.width = int(input('Enter Image Width: '))
         self.height = int(input('Enter Image Height: '))
-        # Diaply the type of images that can be created
+
+        # Display the type of images that can be created
         selection = self.display_creation_menu()
+
         # Handling the random image sequence option first
         if selection == 'random':
             fig = plt.figure()
@@ -40,23 +41,24 @@ class ImageProcessor:
                                             blit=True,repeat_delay=1000)
             plt.show()
             return imgs
-        # Handling the 'exotic' option second
-        if selection == 'exotic':
+
+        # Handling the visual crypto option next
+        if selection == 'crypto':
             fig = plt.figure()
             ims = []
-            
+
 
     @staticmethod
     def spawn_random_image(W, H):
         matrix = np.ones((W, H)).flatten()
         seed = np.random.randn((W*H))
-        matrix = np.array((matrix*seed).reshape((W, H)))
+        matrix = np.array((matrix*seed/255).reshape((W, H)))
         return matrix
 
     @staticmethod
     def display_creation_menu():
         print " [1] 'random' "
-        print " [2] 'exotic' "
+        print " [2] 'crypto' "
         print " [3] '3D-random' "
         return input(' Enter a selection: ')
 
