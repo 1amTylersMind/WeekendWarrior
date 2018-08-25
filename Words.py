@@ -31,9 +31,21 @@ print("Beginning Entropy Analysis. Starting With SHA")
 shaT = time.time()
 os.system('cd BigData/words; ls | while read line;'
           'do python fasthash.py $line sha; done')
-print(str(words_read)+" Words Encrypted with SHA-256 in "+str(time.time() - shaT)+" seconds")
+os.system('clear')
+Tsha256 = time.time() - shaT
+print(str(words_read)+" Words Encrypted with SHA-256 in "+str(Tsha256)+" seconds")
 # Now Do MD5
-
+md5T = time.time()
+os.system('cd BigData/words; ls | while read line;'
+          'do python fasthash.py $line md5; done')
+os.system('clear')
+Tmd5 = time.time() - md5T
+print(str(words_read)+" Words Encrypted with MD-5 in "+str(Tmd5)+" seconds")
+sha5T = time.time()
+os.system('cd BigData/words; ls | while read line;'
+          'do python fasthash.py $line sha512; done')
+os.system('clear')
+print(str(words_read)+" Words Encrypted with SHA-512 in "+str(sha5T)+" seconds")
 
 # print("Processing entropy of "+str(len(dataHEX))+" hex objects")
 # print("Processing the entropy of "+str(len(dataMD5))+" MD5 objects")
@@ -41,4 +53,4 @@ print(str(words_read)+" Words Encrypted with SHA-256 in "+str(time.time() - shaT
 # print("Processing the entropy of "+str(len(dataSHA512))+" SHA-512 objects")
 
 # Clean up the redundant text files created above for the program
-# os.system('cd BigData/words; rm hex.txt sha256.txt md5.txt sha512.txt')
+os.system('cd BigData/words; rm hex.txt sha256.txt md5.txt sha512.txt')

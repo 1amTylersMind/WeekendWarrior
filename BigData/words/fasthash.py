@@ -29,7 +29,7 @@ def main():
                 print(str(len(words)) + " " + sys.argv[1] + " words found")
             else:
                 print(str(len(words)) + " " + sys.argv[1] + " words Encrypted with " + sys.argv[3].upper())
-        except IOError or IndexError:
+        except:
             pass
 
 

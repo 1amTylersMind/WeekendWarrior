@@ -3,10 +3,10 @@ import sys,os, hashlib
 
 def main():
     if(len(sys.argv)>2):
-        if(sys.argv[1]=='$line'):
+        if sys.argv[1] == '$line':
             exit(0)
         fname = sys.argv[1]+" "+sys.argv[2]
-        f = open(fname,'r')
+        f = open(fname, 'r')
         words = list()
         for word in f.readlines():
             words.append(word)
