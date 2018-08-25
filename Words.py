@@ -45,7 +45,12 @@ sha5T = time.time()
 os.system('cd BigData/words; ls | while read line;'
           'do python fasthash.py $line sha512; done')
 os.system('clear')
-print(str(words_read)+" Words Encrypted with SHA-512 in "+str(sha5T)+" seconds")
+print(str(words_read)+" Words Encrypted with SHA-512 in "+str(time.time() - sha5T)+" seconds")
+Thex = time.time()
+os.system('cd BigData/words; ls | while read line;'
+          'do python fasthash.py $line hex; done')
+os.system('clear')
+print(str(words_read)+" Words Encoded with HEX in "+str(time.time() - Thex)+" seconds")
 
 # print("Processing entropy of "+str(len(dataHEX))+" hex objects")
 # print("Processing the entropy of "+str(len(dataMD5))+" MD5 objects")
