@@ -1,26 +1,36 @@
-import sys, os, hashlib
-"""
-<<FAST_HASH>>
-"""
-
-
-def hasher(mode, text):
-    if mode == 'sha256':
-        return hashlib.sha256(text).hexdigest()
-    if mode == 'md5':
-        return hashlib.md5(text).hexdigest()
-    if mode == 'sha1':
-        return hashlib.sha384(text).hextdigest()
-    if mode == 'sha3':
-        return hashlib.sha512(text).hexdigest()
-    if mode == 'hex':
-        return text.encode('hex')
+import sys,os, hashlib
 
 
 def main():
-    opt = sys.argv[1]
-    msg = sys.argv[2]
-    print(hasher(opt,msg))
+    if(len(sys.argv)>2 ):
+        fname = sys.argv[1]+" "+sys.argv[2]
+        try:
+            if fname.split('.')[1] == '.txt' or fname.split('.')[1] == ',py':
+                exit(code=0)
+            f = open(fname, 'r')
+            words = list()
+            for word in f.readlines():
+                words.append(word)
+                if len(sys.argv) == 4:
+                    cipher = sys.argv[3]
+                    fname = sys.argv[1] + " " + sys.argv[2]
+                    f = open(fname, 'r')
+                    if cipher == 'sha':
+                        crypt0 = hashlib.sha256(word).hexdigest()
+                        os.system('echo ' + crypt0 + ' >> sha256.txt')
+                    if cipher == 'md5':
+                        crypt1 = hashlib.md5(word).hexdigest()
+                        os.system('echo ' + crypt1 + ' >> md5.txt')
+                    if cipher == 'hex':
+                        os.system('echo ' + word.encode('hex') + '>> hex.txt')
+                    if cipher == 'sha512':
+                        os.system('echo ' + hashlib.sha512(word).hexdigest() + '>> sha512.txt')
+            if (len(sys.argv) < 4):
+                print(str(len(words)) + " " + sys.argv[1] + " words found")
+            else:
+                print(str(len(words)) + " " + sys.argv[1] + " words Encrypted with " + sys.argv[3].upper())
+        except IOError or IndexError:
+            pass
 
 
 if __name__ == '__main__':
