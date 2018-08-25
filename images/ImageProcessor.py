@@ -1,7 +1,8 @@
 import numpy as np, sys, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import scipy.ndimage as ndi
+from scipy.misc import imsave
+
 
 class ImageProcessor:
 
@@ -12,31 +13,39 @@ class ImageProcessor:
         if opt == 'create':
             iMatrix = self.create_image()
             print iMatrix.shape
-    
+
     def create_image(self):
         width = int(input('Enter Image Width: '))
         height = int(input('Enter Image Height: '))
-        mat = np.zeros((width, height),dtype=int)
-        f = plt.figure()
-        plt.imshow(mat, 'gray')
+        # mat = np.zeros((width, height),dtype=int)
+        # f = plt.figure()
+        # plt.imshow(mat, 'gray')
         selection = self.display_creation_menu()
         if selection == 'random':
-            randomMatrix = \
-                self.spawn_random_image(width,height)
-            plt.imshow(randomMatrix, 'gray')
-            plt.show()
+            fig = plt.figure()
+            imgs = []
+            for i in range(int(width*height)):
+                randomMatrix = \
+                    self.spawn_random_image(width, height)
+                randImg = plt.imshow(randomMatrix,'gray',animated=True)
+                imgs.append([randImg])
 
+            # plt.imshow(randomMatrix, 'gray')
+            # plt.show()
+            ani = animation.ArtistAnimation(fig,imgs,interval=30,
+                                            blit=True,repeat_delay=1000)
+            plt.show()
         return mat
 
     @staticmethod
-    def spawn_random_image(self, W, H):
+    def spawn_random_image(W, H):
         matrix = np.ones((W, H)).flatten()
         seed = np.random.randn((W*H))
-        matrix = (matrix*seed).reshape((W, H))
+        matrix = np.array((matrix*seed).reshape((W, H)))
         return matrix
 
     @staticmethod
-    def display_creation_menu(self):
+    def display_creation_menu():
         print " [1] 'random' "
         print " [2] 'exotic' "
         print " [3] '3D-random' "
