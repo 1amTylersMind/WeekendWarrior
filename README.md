@@ -19,7 +19,9 @@ and then various cryptographic hashes of the same english words with different c
 What I think will be most interesting is to see the incremental change from low
 to high entropy by trying different things like moving from plain text, to hex, 
 to something that's actually the hex output of a hash. 
-![Words](https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/WordsOut.png)
 
-Before I actually start comparing the entropy of all EOWL hashes, I wanted to time the actual speed of the hashing itself. 
-This picture shows three trials, where surprisingly the python hex encoding is the slowest process and the SHA-256 encryption is the fastest. The Hex time is not really all that slow, considering the size of the data but it's interesting.
+
+
+# Here's a vieo of the results of hashing the entire ~130K word EOWL with MD5, SHA-256,
+# SHA-512 and HEX encoding. You might be surprised by the end times. I was.  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-RhIH4T0Z2k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

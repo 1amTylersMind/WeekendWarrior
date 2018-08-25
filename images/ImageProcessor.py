@@ -4,6 +4,7 @@ import matplotlib.animation as animation
 import scipy.io as io
 from scipy.misc import imsave
 import scipy.ndimage as ndi
+import matplotlib as mpl
 
 
 class ImageProcessor:
@@ -13,11 +14,20 @@ class ImageProcessor:
     height = 0
 
     def __init__(self, opt):
-
+        # mpl.verbose.set_level("helpful")
         if opt == 'create':
             iMatrix = self.create_image()
             print str(len(iMatrix))+" frames of " + \
                 str(self.width)+'x'+str(self.height)
+            print "Analyzing Animation data"
+            self.analyze_random_imagedata(iMatrix)
+
+    def analyze_random_imagedata(self,matrices):
+        for img in range(len(matrices)):
+
+            mat = np.array(matrices.pop(),dtype=int)
+            print("Mean of Frame "+str(img)+": "+str(mat.mean()))
+
 
     def create_image(self):
         self.width = int(input('Enter Image Width: '))
@@ -25,23 +35,26 @@ class ImageProcessor:
 
         # Display the type of images that can be created
         selection = self.display_creation_menu()
-
+        imgdata = []
         # Handling the random image sequence option first
         if selection == 'random':
             fig = plt.figure()
-            plt.title(str(self.width)+'x'+str(self.height)+' Random Seed ')
+            plt.title(str(self.width) + 'x' + str(self.height) + ' Random Seed(s)')
             imgs = []
             for i in range(int(self.width*self.height)):
                 randomMatrix = \
                     self.spawn_random_image(self.width, self.height)
-                randImg = plt.imshow(randomMatrix,'gray',animated=True)
+                randomMatrix2 = \
+                    self.spawn_random_image(self.width, self.height)
+                randImg = plt.imshow((randomMatrix-randomMatrix2),'gray',animated=True)
                 imgs.append([randImg])
-
+                imgdata.append(randomMatrix)
             ani = animation.ArtistAnimation(fig,imgs,interval=30,
                                             blit=True,repeat_delay=1000)
             plt.show()
-            ani.save('random.gif',dpi=80,writer='imagemagick')
-            return imgs
+            # ani.save('random.gif',writer=mpl.animation., fps=30)
+         
+            return imgdata
 
         # Handling the visual crypto option next
         if selection == 'crypto':
