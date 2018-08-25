@@ -40,6 +40,7 @@ class ImageProcessor:
             ani = animation.ArtistAnimation(fig,imgs,interval=30,
                                             blit=True,repeat_delay=1000)
             plt.show()
+            ani.save('random.gif',dpi=80,writer='imagemagick')
             return imgs
 
         # Handling the visual crypto option next
