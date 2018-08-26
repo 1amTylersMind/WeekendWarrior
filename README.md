@@ -22,6 +22,5 @@ to something that's actually the hex output of a hash.
 
 
 
-# Here's a vieo of the results of hashing the entire ~130K word EOWL with MD5, SHA-256,
-# SHA-512 and HEX encoding. You might be surprised by the end times. I was.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-RhIH4T0Z2k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+# Here's a vieo of the results of hashing the entire ~130K word EOWL with MD5, SHA-256, SHA-512 and HEX encoding.  
+<a href="https://www.youtube.com/embed/-RhIH4T0Z2k" >
