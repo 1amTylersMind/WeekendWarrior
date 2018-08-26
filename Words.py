@@ -74,4 +74,4 @@ os.system(' cd BigData/words; python EntropyAnalysis.py sha512 sha512.txt')
 print "SHA-512 Analysis finished in "+str(time.time() - sha512Anal)
 
 # Clean up the redundant text files created above for the program
-os.system('cd BigData/words; rm hex.txt sha256.txt md5.txt sha512.txt')
+# os.system('cd BigData/words; rm hex.txt sha256.txt md5.txt sha512.txt')

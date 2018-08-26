@@ -1,7 +1,7 @@
 import sys, os, hashlib
 import numpy as np, matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import sklearn as skl
+from scipy import stats
 
 
 class EntropyAnalysis:
@@ -14,13 +14,12 @@ class EntropyAnalysis:
             self.OptMode = opt
         self.freqdata, freqSequence = self.count_letter_frequency(datastream)
         # Visualize the distribution of hashed character frequency
-        self.visualize_frequency(self.freqdata)
+        data, fit = self.visualize_frequency(self.freqdata)
         # Now use the freqSequence to try and watch this distribution accumulate over time.
         # Want to compare how quickly they get 'flat'. and quantify at each step:
         #   [1] - How flat dist. is, (Slope of Bin counts in arbitrary order)
         #   [2] - How much did the flatness change since last hash, and what's the
         #   [3] - What's abs(max-min) of letter frequency values.
-
 
     def visualize_frequency(self,fdata):
         index = 0
@@ -30,27 +29,38 @@ class EntropyAnalysis:
             freqdata[index] = fdata[k]
             freqmath.append(fdata[k])
             index += 1
-        fig = plt.figure()
-        hist = plt.bar(freqdata.keys(), freqdata.values(), color='g')
         data = np.array(freqmath)
-        print "Std.Dev. = "+str(data.std())
-        print "Max-Min = "+str(data.max() - data.min())
+        Max = data.max()
+        Min = data.min()
+        err, offset, slope = stats.chi.fit(data)
+        fit = {'slope': slope, 'offset': offset, 'error': err}
+        print "Std.Dev. = " + str(data.std())
+        print "Max-Min = " + str(data.max() - data.min())
+        print "Mean Value of Counts: " + str(data.mean())
+        print "Chi-Sq. Fit - Slope: " + str(fit['slope'])
+        print "Error in Fit : " + str(fit['error'])
+
+        # fig = plt.figure()
+        hist = plt.bar(freqdata.keys(), freqdata.values(), color='g')
         plt.title(self.OptMode+' Letter Frequency')
         plt.xlabel('Character')
         plt.ylabel('N Counts')
+        plt.axis([0, len(fdata.keys()), Min, Max + 10])
+        plt.plot(data,color='r')
+        plt.grid(True)
+        plt.title(self.OptMode+' Letter Frequency')
+        plt.show()
+
 
         plt.show()
-        return data
-
-
+        return data, fit
 
     def count_letter_frequency(self,data):
-        bins = {'a':0,'b':0,'c':0,
-                'd':0,'e':0,'f':0,
-                '0':0,'1':0,'2':0,
+        bins = {'0':0,'1':0,'2':0,
                 '3':0,'4':0,'5':0,
                 '6':0,'7':0,'8':0,
-                '9':0}
+                '9':0,'a':0,'b':0,'c':0,
+                'd':0,'e':0,'f':0}
         binhistory = []
         for line in data:
             for element in list(line):
