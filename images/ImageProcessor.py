@@ -28,7 +28,6 @@ class ImageProcessor:
             mat = np.array(matrices.pop(),dtype=int)
             print("Mean of Frame "+str(img)+": "+str(mat.mean()))
 
-
     def create_image(self):
         self.width = int(input('Enter Image Width: '))
         self.height = int(input('Enter Image Height: '))
@@ -53,7 +52,7 @@ class ImageProcessor:
                                             blit=True,repeat_delay=1000)
             plt.show()
             # ani.save('random.gif',writer=mpl.animation., fps=30)
-         
+
             return imgdata
 
         # Handling the visual crypto option next

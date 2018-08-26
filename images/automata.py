@@ -147,5 +147,6 @@ def main():
     automata = StateMachine(25,25)
     automata.test_transfrom(20,'diag','flip')
 
+
 if __name__ == '__main__':
     main()
