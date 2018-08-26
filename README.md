@@ -33,4 +33,4 @@ to something that's actually the hex output of a hash.
 ![sha512data](https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/sha512Data.png)
 
 # Here's a vieo of the results of hashing the entire ~130K word EOWL with MD5, SHA-256, SHA-512 and HEX encoding.  
-![video](https://www.youtube.com/embed/-RhIH4T0Z2k)
+[video of the hashing (boring and slow)](https://www.youtube.com/embed/-RhIH4T0Z2k)
