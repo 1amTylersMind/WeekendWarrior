@@ -12,24 +12,36 @@ class EntropyAnalysis:
     def __init__(self,opt,datastream):
         if opt in self.modes:
             self.OptMode = opt
-        self.freqdata = self.count_letter_frequency(datastream)
+        self.freqdata, freqSequence = self.count_letter_frequency(datastream)
         # Visualize the distribution of hashed character frequency
-        f, fdata = self.visualize_frequency(self.freqdata)
+        self.visualize_frequency(self.freqdata)
+        # Now use the freqSequence to try and watch this distribution accumulate over time.
+        # Want to compare how quickly they get 'flat'. and quantify at each step:
+        #   [1] - How flat dist. is, (Slope of Bin counts in arbitrary order)
+        #   [2] - How much did the flatness change since last hash, and what's the
+        #   [3] - What's abs(max-min) of letter frequency values.
 
 
     def visualize_frequency(self,fdata):
-         index = 0
-         freqdata = {}
-         for k in fdata.keys():
-             freqdata[index] = fdata[k]
-             index += 1
-         fig = plt.figure()
-         plt.bar(freqdata.keys(), freqdata.values(), color='g')
-         plt.title(self.OptMode+' Letter Frequency')
-         plt.xlabel('Character')
-         plt.ylabel('N Counts')
-         # plt.show()
-         return fig, freqdata
+        index = 0
+        freqdata = {}
+        freqmath = []
+        for k in fdata.keys():
+            freqdata[index] = fdata[k]
+            freqmath.append(fdata[k])
+            index += 1
+        fig = plt.figure()
+        hist = plt.bar(freqdata.keys(), freqdata.values(), color='g')
+        data = np.array(freqmath)
+        print "Std.Dev. = "+str(data.std())
+        print "Max-Min = "+str(data.max() - data.min())
+        plt.title(self.OptMode+' Letter Frequency')
+        plt.xlabel('Character')
+        plt.ylabel('N Counts')
+
+        plt.show()
+        return data
+
 
 
     def count_letter_frequency(self,data):
@@ -39,18 +51,15 @@ class EntropyAnalysis:
                 '3':0,'4':0,'5':0,
                 '6':0,'7':0,'8':0,
                 '9':0}
-        figures = []
-        f = plt.figure()
+        binhistory = []
         for line in data:
             for element in list(line):
                 if element in bins.keys():
                     bins[element] += 1
-            fig, freq = self.visualize_frequency(bins)
-            figures.append([plt.bar(freq.keys(),freq.values(),color='g')])
-        ani = animation.ArtistAnimation(f,figures,interval=3,
-                                        blit=True,repeat_delay=2000)
-        plt.show()
-        return bins
+                    # Get the Slope of the hist(bins) at
+                    # this instant!
+                    binhistory.append(bins)
+        return bins, binhistory
 
 
 def usage():
