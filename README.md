@@ -21,16 +21,16 @@ to high entropy by trying different things like moving from plain text, to hex,
 to something that's actually the hex output of a hash. 
 
 # Here's The output of Encoding the EOWL in Hex, and looking at the letter frequency
-[!hexdata]("https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/hexData.png")
+[!hexdata](https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/hexData.png)
 
 # Looking at the Letter Frequency of Hashing each word in EOWL with MD5
-[!md5data]("https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/md5Data.png")
+[!md5data](https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/md5Data.png)
 
 # Looking at the letter frequency of Hashing each word in EOWL with SHA-256
-[!sha256]("https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/sha256.png")
+[!sha256](https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/sha256.png)
 
 # Looking at the letter frequency of Hashing each world in the EOWL with SHA-512 
-[!sha512]("https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/sha512.png")
+[!sha512](https://raw.githubusercontent.com/1amTylersMind/WeekendWarrior/master/sha512.png)
 
 # Here's a vieo of the results of hashing the entire ~130K word EOWL with MD5, SHA-256, SHA-512 and HEX encoding.  
-[!video]("https://www.youtube.com/embed/-RhIH4T0Z2k")
+[!video](https://www.youtube.com/embed/-RhIH4T0Z2k)
